@@ -5,8 +5,9 @@ import { Component, input } from '@angular/core';
   standalone: true,
   imports: [],
   template: ` <div
-    class="w-full px-3 py-2 bg-red-400 rounded-md text-white mb-2"
+    class="w-full px-3 py-2 bg-red-400 rounded-md text-white mb-4"
   >
+    <span class=""> </span>
     {{ message() }}
   </div>`,
 })
