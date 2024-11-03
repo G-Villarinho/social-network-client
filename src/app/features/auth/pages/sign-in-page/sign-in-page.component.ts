@@ -10,11 +10,12 @@ import { Router } from '@angular/router';
 import { SignInPayload } from '@core/models/payloads/sign-in.payload';
 import { GetErrorResponse } from '@core/models/responses/error.response';
 import { UserService } from '@core/services/user.service';
+import { FormErrorComponent } from '@shared/form-error/form-error.component';
 
 @Component({
   selector: 'app-sign-in-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormErrorComponent],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',
 })
