@@ -20,7 +20,7 @@ import {
 } from 'lucide-angular';
 import { importProvidersFrom } from '@angular/core';
 
-export const lucideIconsProviders = importProvidersFrom(
+export const ProvideLucideIcons = importProvidersFrom(
   LucideAngularModule.pick({
     AlignJustify,
     ChartColumnIncreasing,
