@@ -6,16 +6,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SignInPayload } from '@core/models/payloads/sign-in.payload';
 import { GetErrorResponse } from '@core/models/responses/error.response';
 import { UserService } from '@core/services/user.service';
-import { FormErrorComponent } from '@shared/form-error/form-error.component';
+import { FormErrorComponent } from '@shared/components/form-error/form-error.component';
 
 @Component({
   selector: 'app-sign-in-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormErrorComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormErrorComponent,
+    RouterModule,
+  ],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',
 })
@@ -30,13 +35,15 @@ export class SignInPageComponent {
   });
 
   protected errorSignal: WritableSignal<string | null> = signal(null);
+  protected isSubmitting = signal(false);
 
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-
+    this.isSubmitting.set(true);
+    this.form.disable();
     const payload = this.form.value as SignInPayload;
 
     this.userService.signIn(payload).subscribe({
@@ -49,6 +56,9 @@ export class SignInPageComponent {
         if (errorResponse.status >= 400 && errorResponse.status < 500) {
           this.errorSignal.set(errorResponse.details);
         }
+      },
+      complete: () => {
+        this.isSubmitting.set(false);
       },
     });
   }

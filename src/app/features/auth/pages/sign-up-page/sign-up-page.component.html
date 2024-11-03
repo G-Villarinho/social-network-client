@@ -1,0 +1,183 @@
+<div class="flex justify-center min-h-screen">
+  <div
+    class="container sm:mt-40 mt-16 my-auto max-w-xl p-3 bg-white rounded-lg shadow-md"
+  >
+    <div class="my-6 px-6">
+      <div class="mt-2 mb-8">
+        <img src="assets/png/logo-title.png" alt="logo" class="h-8" />
+      </div>
+      <h1 class="text-3xl font-semibold text-gray-700">Create your account</h1>
+      <p class="text-gray-500">Start creating posts in seconds.</p>
+    </div>
+    <div class="m-6">
+      <form class="mb-4 grid gap-6 sm:grid-cols-2" [formGroup]="form">
+        <div class="sm:col-span-1">
+          <label for="first-name" class="block mb-2 text-sm text-gray-600"
+            >First name</label
+          >
+          <input
+            type="text"
+            name="first-name"
+            id="first-name"
+            [formControl]="form.controls.firstName"
+            placeholder="Enter your first name"
+            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
+          />
+          <app-validation-message
+            [control]="form.controls.firstName"
+            error="required"
+          >
+            First name is required.
+          </app-validation-message>
+          <app-validation-message
+            [control]="form.controls.firstName"
+            error="maxlength"
+          >
+            First name cannot be more than 255 characters.
+          </app-validation-message>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="last-name" class="block mb-2 text-sm text-gray-600"
+            >Last name</label
+          >
+          <input
+            type="text"
+            name="last-name"
+            id="last-name"
+            [formControl]="form.controls.lastName"
+            placeholder="Enter your last name"
+            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
+          />
+          <app-validation-message
+            [control]="form.controls.lastName"
+            error="required"
+          >
+            Last name is required.
+          </app-validation-message>
+          <app-validation-message
+            [control]="form.controls.lastName"
+            error="maxlength"
+          >
+            Last name cannot be more than 255 characters.
+          </app-validation-message>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="email" class="block mb-2 text-sm text-gray-600"
+            >Email</label
+          >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            [formControl]="form.controls.email"
+            placeholder="Enter your email"
+            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
+          />
+          <app-validation-message
+            [control]="form.controls.email"
+            error="required"
+          >
+            Email is required.
+          </app-validation-message>
+          <app-validation-message
+            [control]="form.controls.email"
+            error="maxlength"
+          >
+            Email cannot be more than 255 characters.
+          </app-validation-message>
+          <app-validation-message [control]="form.controls.email" error="email">
+            Email is invalid.
+          </app-validation-message>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="username" class="block mb-2 text-sm text-gray-600"
+            >Username</label
+          >
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter your username"
+            [formControl]="form.controls.username"
+            (blur)="checkUsername()"
+            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
+          />
+          <app-validation-message
+            [control]="form.controls.username"
+            error="required"
+          >
+            Username is required.
+          </app-validation-message>
+          @if (usernameErrorSignal()) {
+          <small class="text-red-500 font-bold">
+            {{ usernameErrorSignal() }}
+          </small>
+          } @if (usernameSuggestions().length > 0) {
+          <div class="text-sm text-gray-500">
+            <p>
+              Suggestions: @for (suggestion of usernameSuggestions(); track
+              $index) {
+              <span class="text-blue-500">
+                {{ suggestion }}
+              </span>
+              }
+            </p>
+          </div>
+          }
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="password" class="block mb-2 text-sm text-gray-600"
+            >Password</label
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Enter your password"
+            [formControl]="form.controls.password"
+            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
+          />
+        </div>
+
+        <div class="sm:col-span-1">
+          <label for="confirm-password" class="block mb-2 text-sm text-gray-600"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            placeholder="Confirm your password"
+            [formControl]="form.controls.confirmPassword"
+            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
+          />
+        </div>
+
+        <div class="sm:col-span-2">
+          <button
+            type="button"
+            [disabled]="isSubmitting()"
+            class="w-full px-3 py-2 text-white bg-zinc-500 rounded-md hover:bg-zinc-600 focus:outline-none duration-300 ease-in-out disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
+          >
+            Sign up
+          </button>
+        </div>
+      </form>
+
+      <p class="text-sm text-center text-gray-400">
+        Already have an account?
+        <a
+          [routerLink]="['/auth', 'sign-in']"
+          class="font-semibold text-zinc-500 focus:text-zinc-600 hover:text-zinc-600 focus:outline-none focus:underline duration-300"
+        >
+          Sign in
+        </a>
+        .
+      </p>
+    </div>
+  </div>
+</div>

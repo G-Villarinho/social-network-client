@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { SignInPayload } from '@core/models/payloads/sign-in.payload';
 import { UserUpdatePayload } from '@core/models/payloads/user-update.payload';
 import { UserPayload } from '@core/models/payloads/user.payload';
+import { UsernameSuggetionsResponse } from '@core/models/responses/username-suggetions.response';
 import { User } from '@core/models/user';
 import { environment } from '@environments/environment.development';
 
@@ -35,5 +36,14 @@ export class UserService {
 
   deleteUser() {
     return this.httpClient.delete<null>(this.apiUrl);
+  }
+
+  checkUsername(username: string) {
+    return this.httpClient.post<UsernameSuggetionsResponse>(
+      `${this.apiUrl}/check-username`,
+      {
+        username,
+      }
+    );
   }
 }
