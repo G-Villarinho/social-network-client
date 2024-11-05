@@ -11,6 +11,7 @@ import { SignInPayload } from '@core/models/payloads/sign-in.payload';
 import { GetErrorResponse } from '@core/models/responses/error.response';
 import { UserService } from '@core/services/user.service';
 import { FormErrorComponent } from '@shared/components/form-error/form-error.component';
+import { InputStyleDirective } from '@shared/directives/input-style.directive';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -20,6 +21,7 @@ import { FormErrorComponent } from '@shared/components/form-error/form-error.com
     ReactiveFormsModule,
     FormErrorComponent,
     RouterModule,
+    InputStyleDirective,
   ],
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.scss',
