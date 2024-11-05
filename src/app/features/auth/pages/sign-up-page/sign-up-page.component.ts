@@ -12,7 +12,7 @@ import { UserPayload } from '@core/models/payloads/user.payload';
 import { GetErrorResponse } from '@core/models/responses/error.response';
 import { UsernameSuggetionsResponse } from '@core/models/responses/username-suggetions.response';
 import { UserService } from '@core/services/user.service';
-import { confirmPasswordValidator } from '@core/validators/password-match.validator';
+import { confirmPasswordValidator } from '@shared/validators/password-match.validator';
 import { FormErrorComponent } from '@shared/components/form-error/form-error.component';
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component';
 import { InputStyleDirective } from '@shared/directives/input-style.directive';
