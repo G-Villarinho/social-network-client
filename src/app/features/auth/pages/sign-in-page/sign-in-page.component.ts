@@ -53,6 +53,8 @@ export class SignInPageComponent {
         this.router.navigate(['/']);
       },
       error: (error: HttpErrorResponse) => {
+        this.form.enable();
+        this.isSubmitting.set(false);
         const errorResponse = GetErrorResponse(error);
 
         if (errorResponse.status >= 400 && errorResponse.status < 500) {
