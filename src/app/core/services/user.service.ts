@@ -46,4 +46,10 @@ export class UserService {
       }
     );
   }
+
+  checkPasswordStrong(password: string) {
+    return this.httpClient.post<null>(`${this.apiUrl}/check-password-strong`, {
+      password,
+    });
+  }
 }

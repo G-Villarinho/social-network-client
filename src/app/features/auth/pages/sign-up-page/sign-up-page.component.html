@@ -9,7 +9,11 @@
       <h1 class="text-3xl font-semibold text-gray-700">Create your account</h1>
       <p class="text-gray-500">Start creating posts in seconds.</p>
     </div>
-    <div class="m-6">
+
+    <div class="m-6 space-y-6">
+      @if (globalErrorSignal()) {
+      <app-form-error [message]="globalErrorSignal()!" />
+      }
       <form class="mb-4 grid gap-6 sm:grid-cols-2" [formGroup]="form">
         <div class="sm:col-span-1">
           <label for="first-name" class="block mb-2 text-sm text-gray-600"
@@ -141,6 +145,18 @@
             [formControl]="form.controls.password"
             class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
           />
+          <app-validation-message
+            [control]="form.controls.password"
+            error="required"
+          >
+            Password is required.
+          </app-validation-message>
+          <app-validation-message
+            [control]="form.controls.password"
+            error="passwordWeak"
+          >
+            {{ errorPasswordWeakMessage }}
+          </app-validation-message>
         </div>
 
         <div class="sm:col-span-1">
@@ -155,12 +171,25 @@
             [formControl]="form.controls.confirmPassword"
             class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:border-zinc-800 transition duration-300 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400"
           />
+          <app-validation-message
+            [control]="form.controls.confirmPassword"
+            error="required"
+          >
+            Confirm Password is required.
+          </app-validation-message>
+          <app-validation-message
+            [control]="form.controls.confirmPassword"
+            error="passwordsMismatch"
+          >
+            Passwords do not match.
+          </app-validation-message>
         </div>
 
         <div class="sm:col-span-2">
           <button
             type="button"
             [disabled]="isSubmitting()"
+            (click)="onSubmit()"
             class="w-full px-3 py-2 text-white bg-zinc-500 rounded-md hover:bg-zinc-600 focus:outline-none duration-300 ease-in-out disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed"
           >
             Sign up
