@@ -15,6 +15,7 @@ import { UserService } from '@core/services/user.service';
 import { confirmPasswordValidator } from '@core/validators/password-match.validator';
 import { FormErrorComponent } from '@shared/components/form-error/form-error.component';
 import { ValidationMessageComponent } from '@shared/components/validation-message/validation-message.component';
+import { InputStyleDirective } from '@shared/directives/input-style.directive';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -25,6 +26,7 @@ import { ValidationMessageComponent } from '@shared/components/validation-messag
     FormErrorComponent,
     RouterModule,
     ValidationMessageComponent,
+    InputStyleDirective,
   ],
   templateUrl: './sign-up-page.component.html',
   styleUrl: './sign-up-page.component.scss',
