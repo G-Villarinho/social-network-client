@@ -1,0 +1,43 @@
+@if (user) {
+<div
+    class="relative flex h-[calc(100vh-20rem)] w-full max-w-[18rem] flex-col rounded-xl bg-white bg-clip-border p-4 text-gray-700 shadow-xl shadow-blue-gray-900/5 min-h-screen"
+>
+    <div class="p-4 mb-2">
+        <img src="assets/png/logo-title.png" alt="logo fox hub" class="h-8" />
+    </div>
+    <nav
+        class="flex min-w-[240px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700"
+    >
+        @for (item of sidebarItems; track $index) {
+        <button
+            class="flex items-center w-full p-3 hover:bg-gray-300 rounded-full duration-300"
+        >
+            <div class="grid mr-4 place-items-center">
+                <lucide-icon [name]="item.icon" size="30" />
+            </div>
+            <span class="font-bold text-2xl">{{ item.label }}</span>
+        </button>
+        }
+    </nav>
+    <button
+        class="flex items-center w-full p-3 mt-auto hover:bg-gray-300 rounded-full duration-300 justify-start"
+    >
+        <div class="grid mr-4 place-items-center">
+            <img
+                src="https://github.com/G-Villarinho.png"
+                alt="user profile"
+                class="h-12 w-12 rounded-full"
+            />
+        </div>
+        <div class="flex flex-col text-left">
+            <span class="font-semibold">{{
+                user.firstName + ' ' + user.lastName
+            }}</span>
+            <span>{{ '@' + user.username }}</span>
+        </div>
+        <div class="ml-auto">
+            <lucide-icon name="ellipsis" size="25" />
+        </div>
+    </button>
+</div>
+}

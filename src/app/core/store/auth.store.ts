@@ -1,33 +1,47 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { User } from '@core/models/user';
-import { TokenService } from '@core/services/token.service';
+import { LocalStorageService } from '@shared/services/local-storage.service';
+
+const AUTH_DATA = 'x.Auth';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AuthStore {
-  private tokenService = inject(TokenService);
+    private localStorageService: LocalStorageService<User> = inject(
+        LocalStorageService<User>
+    );
 
-  private userSignal: WritableSignal<User | null> = signal(null);
+    private userSignal: WritableSignal<User | null> = signal(null);
 
-  constructor() {
-    this.loadUserFromToken();
-  }
+    constructor() {
+        this.loadUserFromStorage();
+    }
 
-  private loadUserFromToken(): void {
-    const user = this.tokenService.decodeToken();
-    this.userSignal.set(user);
-  }
+    isAuthenticated(): boolean {
+        return this.userSignal() !== null;
+    }
 
-  get user(): User | null {
-    return this.userSignal();
-  }
+    clearAuth(): void {
+        this.userSignal.set(null);
+    }
 
-  isAuthenticated(): boolean {
-    return this.userSignal() !== null;
-  }
+    setUser(user: User): void {
+        this.userSignal.set(user);
+    }
 
-  clearAuth(): void {
-    this.userSignal.set(null);
-  }
+    getUser(): User | null {
+        return this.userSignal();
+    }
+
+    saveUserToLocalStorage(user: User): void {
+        this.localStorageService.setItem(AUTH_DATA, user);
+    }
+
+    private loadUserFromStorage() {
+        const user = this.localStorageService.getItem(AUTH_DATA);
+        if (user !== null) {
+            this.userSignal.set(user);
+        }
+    }
 }
