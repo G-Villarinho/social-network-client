@@ -3,6 +3,7 @@ import {
     Compass,
     Ellipsis,
     House,
+    LogOut,
     LucideAngularModule,
     TriangleAlert,
     User,
@@ -17,5 +18,6 @@ export const ProvideLucideIcons = importProvidersFrom(
         User,
         Bookmark,
         Ellipsis,
+        LogOut,
     })
 );
