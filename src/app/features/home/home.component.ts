@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.feedStore.isLoading$,
             this.feedStore.hasMorePosts$,
         ]).pipe(
-            first(),
-            filter(([isLoading, hasMorePosts]) => !isLoading && hasMorePosts),
+            first(), // Pega apenas o primeiro estado atual
+            filter(([isLoading, hasMorePosts]) => !isLoading && hasMorePosts), // Continua apenas se não está carregando e ainda há mais posts
             tap(() => this.feedStore.setLoading(true)),
             switchMap(() =>
                 this.feedService.getFeed(this.currentPage, this.limit).pipe(
@@ -57,13 +57,15 @@ export class HomeComponent implements OnInit, OnDestroy {
                             response.rows.length === this.limit
                         );
                         this.currentPage++;
-                    }),
-                    tap(() => this.feedStore.setLoading(false))
+                    })
                 )
-            )
+            ),
+            tap(() => this.feedStore.setLoading(false)),
+            tap({
+                error: () => this.feedStore.setLoading(false),
+            })
         );
     }
-
     onScroll() {
         this.loadFeed().pipe(takeUntil(this.destroy$)).subscribe();
     }

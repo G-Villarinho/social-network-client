@@ -11,7 +11,9 @@ import { SidebarComponent } from '@core/components/sidebar/sidebar.component';
         <div class="flex justify-center min-h-screen bg-gray-100">
             <app-sidebar />
 
-            <div class="flex-1 lg:max-w-2xl p-4">
+            <div
+                class="flex-1 lg:max-w-2xl p-4 overflow-y-auto h-screen scrollable-content"
+            >
                 <app-create-post-modal #modal />
                 <router-outlet />
             </div>
