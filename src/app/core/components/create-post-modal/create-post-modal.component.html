@@ -1,0 +1,60 @@
+@if (isOpen$ | async) {
+<div
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    (click)="close()"
+    (keydown.escape)="close()"
+    tabindex="0"
+>
+    @if (user) {
+    <dialog
+        class="bg-white rounded-lg p-4 w-full max-w-lg shadow-lg"
+        open
+        (click)="$event.stopPropagation()"
+    >
+        <button
+            class="mb-2 rounded-full hover:bg-gray-200 duration-300 ml-auto"
+            (click)="close()"
+            aria-label="close create post modal"
+        >
+            <lucide-icon name="x" size="24" class="text-gray-600" />
+        </button>
+        <div class="flex flex-row mt-3">
+            <img
+                [src]="user.avatar"
+                alt="User Profile"
+                class="w-10 h-10 rounded-full mr-4"
+            />
+            <form [formGroup]="postForm" class="flex-1 space-y-2">
+                <input
+                    type="text"
+                    placeholder="Add a title"
+                    maxlength="100"
+                    styledInput
+                    [formControl]="postForm.controls.title"
+                />
+
+                <textarea
+                    placeholder="Write something..."
+                    class="w-full h-24 p-2 border rounded-md resize-none"
+                    maxlength="255"
+                    styledInput
+                    [formControl]="postForm.controls.content"
+                ></textarea>
+
+                <div class="flex mt-2 space-x-2 ml-auto">
+                    <button
+                        type="button"
+                        class="text-white ml-auto font-bold rounded-3xl bg-gray-500 px-4 py-1 hover:bg-gray-600 duration-300 disabled:bg-gray-400 disabled:text-gray-200"
+                        aria-label="Post"
+                        [disabled]="!postForm.valid || isSubmitting()"
+                        (click)="createPost()"
+                    >
+                        Post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+    }
+</div>
+}

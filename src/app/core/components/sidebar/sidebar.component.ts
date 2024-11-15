@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { CreatePostModalService } from '@core/services/create-post-modal.service';
 import { UserService } from '@core/services/user.service';
 import { AuthStore } from '@core/store/auth.store';
 import { LucideAngularModule } from 'lucide-angular';
@@ -21,6 +22,7 @@ export class SidebarComponent {
     private authStore = inject(AuthStore);
     private userService = inject(UserService);
     private router = inject(Router);
+    private createPostModalService = inject(CreatePostModalService);
 
     protected isDropdownOpen = false;
     protected user = this.authStore.getUser();
@@ -49,6 +51,10 @@ export class SidebarComponent {
 
     protected toggleDropdown(): void {
         this.isDropdownOpen = !this.isDropdownOpen;
+    }
+
+    protected openCreatePostModal(): void {
+        this.createPostModalService.open();
     }
 
     logout(): void {

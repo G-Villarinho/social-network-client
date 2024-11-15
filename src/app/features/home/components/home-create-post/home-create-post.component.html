@@ -1,0 +1,38 @@
+@if (user) {
+<div class="flex items-start p-4 bg-white rounded-lg shadow-sm">
+    <img
+        [src]="user.avatar"
+        alt="User Profile"
+        class="w-10 h-10 rounded-full mr-4"
+    />
+    <form [formGroup]="postForm" class="flex-1 space-y-2">
+        <input
+            type="text"
+            placeholder="Add a title"
+            maxlength="100"
+            styledInput
+            [formControl]="postForm.controls.title"
+        />
+
+        <textarea
+            placeholder="Write something..."
+            styledInput
+            class="w-full h-24 p-2 border rounded-md resize-none"
+            maxlength="255"
+            styledInput
+            [formControl]="postForm.controls.content"
+        ></textarea>
+
+        <div class="flex mt-2 space-x-2 ml-auto">
+            <button
+                class="text-white ml-auto font-bold rounded-3xl bg-gray-500 px-4 py-1 hover:bg-gray-600 duration-300 disabled:bg-gray-400 disabled:text-gray-200"
+                aria-label="Post"
+                [disabled]="!postForm.valid || isSubmitting()"
+                (click)="createPost()"
+            >
+                Post
+            </button>
+        </div>
+    </form>
+</div>
+}

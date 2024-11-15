@@ -20,6 +20,7 @@
     "@angular/router": "^17.3.0",
     "lucide-angular": "^0.454.0",
     "ngx-cookie-service": "^18.0.0",
+    "ngx-infinite-scroll": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

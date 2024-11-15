@@ -1,1 +1,19 @@
-<app-sidebar></app-sidebar>
+<app-home-create-post></app-home-create-post>
+
+<div
+    class="feed"
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollUpDistance]="2"
+    [infiniteScrollThrottle]="150"
+    (scrolled)="onScroll()"
+>
+    @for (post of feed$ | async; track $index) {
+    <div class="post">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+    </div>
+    } @if (isLoading$ | async) {
+    <div class="loading">Loading more posts...</div>
+    }
+</div>

@@ -7,6 +7,7 @@ import {
     LucideAngularModule,
     TriangleAlert,
     User,
+    X,
 } from 'lucide-angular';
 import { importProvidersFrom } from '@angular/core';
 
@@ -19,5 +20,6 @@ export const ProvideLucideIcons = importProvidersFrom(
         Bookmark,
         Ellipsis,
         LogOut,
+        X,
     })
 );
